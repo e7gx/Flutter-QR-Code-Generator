@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Color blackColor = const Color(0XFF0C110F);
   Color buttonColor = const Color(0XFF00FFAE);
 
-  String qrData = 'https://github.com/hammadx02';
+  String qrData = 'https://github.com/e7gx';
   TextEditingController qrDataController = TextEditingController();
   final qrKey = GlobalKey();
 
@@ -53,107 +53,116 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            Text(
-              'Create a personal QR-Code',
-              style: GoogleFonts.raleway(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: whiteColor,
-              ),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Container(
-              height: 400,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: RepaintBoundary(
-                key: qrKey,
-                child: QrImageView(
-                  data: qrData,
-                  version: QrVersions.auto,
-                  size: 300,
-                  dataModuleStyle: QrDataModuleStyle(
-                    dataModuleShape: QrDataModuleShape.circle,
-                    color: blackColor,
-                  ),
-                  eyeStyle: QrEyeStyle(
-                    eyeShape: QrEyeShape.square,
-                    color: blackColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Create a personal QR-Code',
+                  style: GoogleFonts.raleway(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: whiteColor,
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            TextFormField(
-              controller: qrDataController,
-              style: GoogleFonts.raleway(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: whiteColor,
-              ),
-              cursorColor: buttonColor,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+                const SizedBox(
+                  height: 40,
+                ),
+                Container(
+                  height: 360,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: whiteColor,
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  borderSide: BorderSide(
-                    color: buttonColor,
+                  child: Center(
+                    child: RepaintBoundary(
+                      key: qrKey,
+                      child: QrImageView(
+                        data: qrData,
+                        version: QrVersions.auto,
+                        size: 500,
+                        dataModuleStyle: QrDataModuleStyle(
+                          dataModuleShape: QrDataModuleShape.circle,
+                          color: blackColor,
+                        ),
+                        eyeStyle: QrEyeStyle(
+                          eyeShape: QrEyeShape.square,
+                          color: blackColor,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+                const SizedBox(
+                  height: 25,
+                ),
+                TextFormField(
+                  controller: qrDataController,
+                  style: GoogleFonts.raleway(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: whiteColor,
                   ),
-                  borderSide: BorderSide(
-                    color: buttonColor,
+                  cursorColor: buttonColor,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your data',
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                      borderSide: BorderSide(
+                        color: buttonColor,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      borderSide: BorderSide(
+                        color: buttonColor,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            const Spacer(),
-            GestureDetector(
-              onTap: () {
-                if (qrDataController.text.isNotEmpty) {
-                  setState(() {
-                    qrData = qrDataController.text;
-                  });
-                }
-              },
-              child: Container(
-                height: 80,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: buttonColor,
-                  borderRadius: BorderRadius.circular(100),
+                const SizedBox(
+                  height: 20,
                 ),
-                child: Center(
+                TextButton(
+                  onPressed: () {
+                    if (qrDataController.text.isNotEmpty) {
+                      setState(() {
+                        qrData = qrDataController.text;
+                      });
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                      backgroundColor: buttonColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 50,
+                        vertical: 10,
+                      )),
                   child: Text(
-                    'Generate QR-Code',
+                    'Generate QR Code',
                     style: GoogleFonts.raleway(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: blackColor,
                     ),
                   ),
                 ),
-              ),
+                const SizedBox(
+                  height: 30,
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-          ],
+          ),
         ),
       ),
     );
